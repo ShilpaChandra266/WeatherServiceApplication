@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJcq0861S6TRPedx8YCZoRxDdNy7ApIP0"></script>
+		<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular.js"></script>
+		<script type="text/javascript" src="js/weathercontroller.js"></script>
+		<title>Weather Application</title>
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="./style.css">
+		<script>
+            var autocomplete;
+            function initialize() {
+              autocomplete = new google.maps.places.Autocomplete(
+                  (document.getElementById('autocomplete')),
+                  { types: ['geocode'] });
+              google.maps.event.addListener(autocomplete, 'place_changed', function() {
+              });
+            }
+        
+        </script>
+	</head>
+     	<body onload="initialize()" ng-app='WeatherServices'>
+			<div class="controller" ng-controller='WeatherServicesController'>
+				<div class="header">
+					<div class="search-box">
+						<h1>Weather Service</h1>
+					</div>
+				</div>
+				<div class="search-box">
+					<div class="input">
+						<input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" name="location" type="text" ng-model='loc'></input>
+		    			<input type="submit" value="Submit" ng-click='getWeather()'>
+		    		</div>
+		    	</div>
+		    			<div class="content">
+		    				<div class ='outer_div' ng-hide="data==null">
+		    					<div ng-repeat="x in data">
+		    						<div class='weather_data' style="background-image: url(DarkSky-icons/{{x.icon}}.jpg)">
+		    						<div class="block-header">{{x.time*1000 | date: 'MMM-dd'}}</div>
+		    						<div class="summary">{{x.summary}}</div>
+		    						<span>Low: {{x.temperatureLow}}<sup>o</sup></span>
+									<span>High: {{x.temperatureHigh}}<sup>o</sup></span>
+									<div>
+										<span><img src="images/icon-wind.png" alt="">Wind Speed: {{x.windSpeed}}</span>
+									</div>
+									<div>
+										<span>Humidity: {{x.humidity}}</span>
+									</div>
+								</div>
+		    					</div>
+					</div>
+			</div>
+    	</body>
+	</html>
