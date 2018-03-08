@@ -1,5 +1,5 @@
-const location_host = 'location-197407.appspot.com';
-const weather_host = 'weather-197404.appspot.com';
+const location_host = process.env.LURL;
+const weather_host = process.env.RURL;
 const daySec = 60 * 60 * 24;
 const https = require('https'); 
 const express = require("express");
